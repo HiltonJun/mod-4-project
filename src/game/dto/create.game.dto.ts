@@ -2,6 +2,12 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsPositive, IsUrl, Max } from "class-validator";
 
 export class CreateGameDto {
+@ApiProperty({
+  description: 'O id do jogo no banco de dados',
+  example: '504ead36-3afe-491a-8222-811ce36241b2'
+})
+  id: string;
+
   @ApiProperty({
     description: 'O nome do jogo',
     example: 'Outward: Definitive Edition'
@@ -71,4 +77,16 @@ export class CreateGameDto {
     example: false
   })
   favorite: boolean;
+
+  @ApiProperty({
+    description: 'Data de criação gerenciada pela Api',
+    example: '2022-05-23T23:33:57.067Z',
+  })
+  createdAt: Date;
+
+  @ApiProperty({
+    description: 'Data de última atualização',
+    example: '2022-05-23T23:33:57.068Z',
+  })
+  updatedAt: Date;
 }

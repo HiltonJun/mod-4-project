@@ -11,4 +11,6 @@ export class Game {
   genre: string;
   imdbscore: number;
   favorite: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
