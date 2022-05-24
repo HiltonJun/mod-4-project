@@ -21,14 +21,31 @@ model Game {
   imdbscore   Int
   favorite    Boolean
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("game")
 }
 
 model Genero {
   id   String @id @default(uuid())
-  nome String
+  nome String @unique
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("genero")
+}
+
+model User {
+  id       String @id @default(uuid())
+  nickname String @unique
+  name     String
+  password String
+  image    String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
 }
