@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -27,7 +27,7 @@ export class UserController {
 
   @Get(':id')
   @ApiOperation({
-    summary: 'Visualizar um usuário'
+    summary: 'Visualizar um usuário pelo ID'
   })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
@@ -35,17 +35,18 @@ export class UserController {
 
   @Patch(':id')
   @ApiOperation({
-    summary: 'Editar um usuário por id'
+    summary: 'Editar um usuário por ID'
   })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Remover um usuário por id'
+    summary: 'Remover um usuário por ID'
   })
-  remove(@Param('id') id: string) {
+  delete(@Param('id') id: string) {
     return this.userService.delete(id);
   }
 }

@@ -40,13 +40,13 @@ export class GenerosService {
   }
 
   async findOne(id: string): Promise<Genero> {
-    return this.findById(id);
+    return await this.findById(id);
   }
 
-  create(dto: CreateGeneroDto): Promise<Genero> {
+  async create(dto: CreateGeneroDto): Promise<Genero> {
     const data: Genero = { ...dto };
 
-    return this.prisma.genero.create({ data }).catch(this.handleError);
+    return await this.prisma.genero.create({ data }).catch(this.handleError);
   }
 
   handleError(error: Error) {

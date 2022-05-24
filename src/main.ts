@@ -12,8 +12,10 @@ async function bootstrap() {
     .setTitle('GameLive')
     .setDescription('Aplicaçâo para gestão e compra de jogos em plataforma online')
     .setVersion('1.0.0')
-    .addTag('Status')
+    .addTag('status')
     .addTag('Game')
+    .addTag('Genero')
+    .addTag('User')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
