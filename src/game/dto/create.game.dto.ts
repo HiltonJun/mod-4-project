@@ -51,21 +51,14 @@ export class CreateGameDto {
     example: 'Nine Dots Studio',
   })
   developer: string;
-  
+
   @IsString()
   @ApiProperty({
     description: 'Nome da empresa publicadora',
     example: 'Prime Matter',
   })
   publisher: string;
-
-  @IsString()
-  @ApiProperty({
-    description: 'Gêneros do jogo',
-    example: 'Açao, Aventura, RPG',
-  })
-  genre: string;
-
+  
   @IsPositive()
   @Max(5)
   @ApiProperty({
