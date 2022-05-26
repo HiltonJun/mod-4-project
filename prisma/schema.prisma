@@ -12,17 +12,14 @@ model Game {
   nome        String
   capa        String
   descricao   String
-  preco       Int
   plataformas String
   lancamento  String
   developer   String
   publisher   String
-  genre       String
   imdbscore   Int
   favorite    Boolean
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  trailer     String
+  gameplay    String
 
   @@map("game")
 }
@@ -31,21 +28,17 @@ model Genero {
   id   String @id @default(uuid())
   nome String @unique
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
   @@map("genero")
 }
 
 model User {
   id       String @id @default(uuid())
-  nickname String @unique
+  cpf String  @unique
   name     String
+  email String
   password String
   image    String
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  isAdmin Boolean
 
   @@map("user")
 }

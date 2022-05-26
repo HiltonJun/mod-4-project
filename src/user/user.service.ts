@@ -14,12 +14,12 @@ import * as bcrypt from 'bcrypt';
 export class UserService {
   private userSelect = {
     id: true,
-    nickname: true,
+    cpf: false,
     name: true,
     password: false,
     image: true,
-    createdAt: true,
-    updatedAt: true,
+    email: false,
+    isAdmin: false,
   };
 
   constructor(private readonly prisma: PrismaService) {}
