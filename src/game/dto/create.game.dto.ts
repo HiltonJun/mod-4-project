@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsPositive, IsString, IsUrl, Max } from 'class-validator';
+import { IsBoolean, IsPositive, IsString, IsUrl, Max } from 'class-validator';
 
 export class CreateGameDto {
   @IsString()
@@ -31,13 +31,6 @@ export class CreateGameDto {
   })
   descricao: string;
 
-  @IsPositive()
-  @ApiProperty({
-    description: 'Preço do jogo em Reais',
-    example: 119,
-  })
-  preco: number;
-
   @IsString()
   @ApiProperty({
     description: 'Para quais plataformas o jogo foi lançado',
@@ -58,12 +51,14 @@ export class CreateGameDto {
     example: 'Nine Dots Studio',
   })
   developer: string;
+  
   @IsString()
   @ApiProperty({
     description: 'Nome da empresa publicadora',
     example: 'Prime Matter',
   })
   publisher: string;
+
   @IsString()
   @ApiProperty({
     description: 'Gêneros do jogo',
@@ -79,21 +74,24 @@ export class CreateGameDto {
   })
   imdbscore: number;
 
+  @IsBoolean()
   @ApiProperty({
     description: 'Se o jogo é favorito do usuário("False" por default)',
     example: false,
   })
   favorite: boolean;
 
+  @IsUrl()
   @ApiProperty({
-    description: 'Data de criação gerenciada pela Api',
-    example: '2022-05-23T23:33:57.067Z',
+    description: 'Trailer do jogo no Youtube',
+    example: 'https://www.youtube.com/watch?v=gy6bya_YIkw',
   })
-  createdAt: Date;
+  trailer: string;
 
+  @IsUrl()
   @ApiProperty({
-    description: 'Data de última atualização',
-    example: '2022-05-23T23:33:57.068Z',
+    description: 'Gameplay do jogo no Youtube',
+    example: 'https://www.youtube.com/watch?v=7krjWYPsMNc',
   })
-  updatedAt: Date;
+  gameplay: string;
 }

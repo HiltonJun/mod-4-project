@@ -11,13 +11,6 @@ export class CreateUserDto {
 
   @IsString()
   @ApiProperty({
-    description: 'O nickname da conta',
-    example: 'Junhonda',
-  })
-  nickname: string;
-
-  @IsString()
-  @ApiProperty({
     description: 'O nome de usuário',
     example: 'Hilton',
   })
@@ -46,7 +39,4 @@ export class CreateUserDto {
     example: 'https://avatars.githubusercontent.com/u/11823634?v=4',
   })
   image: string;
-
-  createdAt: Date;
-  updatedAt: Date;
 }

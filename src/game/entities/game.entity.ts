@@ -3,7 +3,6 @@ export class Game {
   nome: string;
   capa: string;
   descricao: string;
-  preco: number;
   plataformas: string;
   lancamento: string;
   developer: string;
@@ -11,6 +10,6 @@ export class Game {
   genre: string;
   imdbscore: number;
   favorite: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  trailer: string;
+  gameplay: string;
 }
