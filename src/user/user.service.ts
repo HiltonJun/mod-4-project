@@ -9,6 +9,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { handleError } from 'src/utils/handle.error.utils';
 
 @Injectable()
 export class UserService {
@@ -64,7 +65,7 @@ export class UserService {
         data,
         select: this.userSelect,
       })
-      .catch(this.handleError);
+      .catch(handleError);
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
@@ -90,25 +91,12 @@ export class UserService {
         data,
         select: this.userSelect,
       })
-      .catch(this.handleError);
+      .catch(handleError);
   }
 
   async delete(id: string) {
     await this.findById(id);
 
     await this.prisma.user.delete({ where: { id } });
-  }
-
-  handleError(error: Error): undefined {
-    const errorLines = error.message?.split('\n');
-    const lastErrorLine = errorLines[errorLines.length - 1]?.trim();
-
-    if (!lastErrorLine) {
-      console.error(error);
-    }
-
-    throw new UnprocessableEntityException(
-      lastErrorLine || 'Algum erro ocorreu ao executar a operação',
-    );
   }
 }

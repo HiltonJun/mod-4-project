@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { handleError } from 'src/utils/handle.error.utils';
 import { CreatePerfilDto } from './dto/create-perfil.dto';
 import { UpdatePerfilDto } from './dto/update-perfil.dto';
 import { Perfil } from './entities/perfil.entity';
@@ -46,12 +47,6 @@ export class PerfilService {
   async create(dto: CreatePerfilDto): Promise<Perfil> {
     const data: Perfil = { ...dto };
 
-    return await this.prisma.perfil.create({ data }).catch(this.handleError);
-  }
-
-  handleError(error: Error) {
-    console.log(error.message);
-
-    return undefined
+    return await this.prisma.perfil.create({ data }).catch(handleError);
   }
 }
