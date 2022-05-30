@@ -22,7 +22,7 @@ model Game {
   gameplay    String
 
   generos Genero[]
-  perfis Perfil[]
+  perfis  Perfil[]
 
   @@map("game")
 }
@@ -37,13 +37,13 @@ model Genero {
 }
 
 model User {
-  id       String @id @default(uuid())
-  cpf String  @unique
-  name     String
-  email String
+  id       String  @id @default(uuid())
+  cpf      String
+  name     String  @unique
+  email    String
   password String
   image    String
-  isAdmin Boolean
+  isAdmin  Boolean
 
   perfil Perfil[]
 
@@ -52,13 +52,13 @@ model User {
 
 model Perfil {
   id       String @id @default(uuid())
-  title String
+  title    String
   imageURL String
 
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
 
-   games Game[]
+  games Game[]
 
   @@map("perfil")
 }

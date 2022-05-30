@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsPositive, IsString, IsUrl, Max } from 'class-validator';
+import { IsBoolean, IsPositive, IsString, IsUrl, IsUUID, Max } from 'class-validator';
 
 export class CreateGameDto {
   @IsString()
@@ -58,7 +58,7 @@ export class CreateGameDto {
     example: 'Prime Matter',
   })
   publisher: string;
-  
+
   @IsPositive()
   @Max(5)
   @ApiProperty({
@@ -87,4 +87,20 @@ export class CreateGameDto {
     example: 'https://www.youtube.com/watch?v=7krjWYPsMNc',
   })
   gameplay: string;
+
+  @IsUUID(undefined, { each: true })
+  @ApiProperty({
+    description: 'Lista com os IDs dos generos do jogo',
+    example:
+      '["04f66779-bcfa-4c5c-a140-f234138890f3", "adb96fd7-cdcf-43dc-9e1b-0c0a262111f9"]',
+  })
+  generos: string[];
+
+  @IsUUID(undefined, { each: true })
+  @ApiProperty({
+    description: 'Lista com os IDs dos perfis que tem o jogo',
+    example:
+      '["04f66779-bcfa-4c5c-a140-f234138890f3", "adb96fd7-cdcf-43dc-9e1b-0c0a262111f9"]',
+  })
+  perfis: string[];
 }
