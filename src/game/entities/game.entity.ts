@@ -1,16 +1,19 @@
+import { Genero } from "src/generos/entities/genero.entity";
+import { Perfil } from "src/perfil/entities/perfil.entity";
+
 export class Game {
   id: string;
   nome: string;
   capa: string;
   descricao: string;
-  preco: number;
   plataformas: string;
   lancamento: string;
   developer: string;
   publisher: string;
-  genre: string;
   imdbscore: number;
   favorite: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  trailer: string;
+  gameplay: string;
+  generos?: Genero[];
+  perfis?: Perfil[]
 }

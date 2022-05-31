@@ -12,23 +12,53 @@ model Game {
   nome        String
   capa        String
   descricao   String
-  preco       Int
   plataformas String
   lancamento  String
   developer   String
   publisher   String
-  genre       String
   imdbscore   Int
   favorite    Boolean
+  trailer     String
+  gameplay    String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  generos Genero[]
+  perfis  Perfil[]
+
+  @@map("game")
 }
 
 model Genero {
   id   String @id @default(uuid())
-  nome String
+  nome String @unique
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  games Game[]
+
+  @@map("genero")
+}
+
+model User {
+  id       String  @id @default(uuid())
+  cpf      String
+  name     String  @unique
+  email    String
+  password String
+  image    String
+  isAdmin  Boolean
+
+  perfil Perfil[]
+
+  @@map("user")
+}
+
+model Perfil {
+  id       String @id @default(uuid())
+  title    String
+  imageURL String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  games Game[]
+
+  @@map("perfil")
 }

@@ -49,6 +49,6 @@ export class GenerosController {
     summary: 'Remover um genero pelo ID',
   })
   delete(@Param('id') id: string) {
-    this.generoService.delete(id);
+    return this.generoService.delete(id);
   }
 }
