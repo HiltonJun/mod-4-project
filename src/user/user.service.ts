@@ -44,10 +44,6 @@ export class UserService {
     return record;
   }
 
-  async findOne(id: string): Promise<User> {
-    return this.findById(id);
-  }
-
   async create(dto: CreateUserDto): Promise<User> {
     if (dto.password != dto.confirmPassword) {
       throw new BadRequestException('As senhas informadas não são iguais.');

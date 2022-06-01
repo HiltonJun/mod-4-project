@@ -38,9 +38,9 @@ model Genero {
 
 model User {
   id       String  @id @default(uuid())
-  cpf      String
+  cpf      String  @unique
   name     String  @unique
-  email    String
+  email    String  @unique
   password String
   image    String
   isAdmin  Boolean

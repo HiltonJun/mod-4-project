@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { handleError } from 'src/utils/handle.error.utils';
 import { CreatePerfilDto } from './dto/create-perfil.dto';
@@ -9,44 +10,74 @@ import { Perfil } from './entities/perfil.entity';
 export class PerfilService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async delete(id: string) {
-    await this.findById(id);
+  delete(id: string) {
+    return this.prisma.perfil.delete({where: { id }})
+  };
 
-    await this.prisma.perfil.delete({ where: { id } });
-  }
-
-  async update(id: string, dto: UpdatePerfilDto): Promise<Perfil> {
-    await this.findById(id);
-
-    const data: Partial<Perfil> = { ...dto };
-
+  update(id: string, dto: UpdatePerfilDto) {
     return this.prisma.perfil.update({
       where: { id },
-      data,
-    });
+      data: {
+        title: dto.title,
+        imageURL: dto.imageURL,
+      }
+    })
+  };
+
+  findAll() {
+    return this.prisma.perfil.findMany({
+      select: {
+        title: true,
+        imageURL: true,
+      },
+    })
   }
 
-  findAll(): Promise<Perfil[]> {
-    return this.prisma.perfil.findMany();
+  findOne(id: string) {
+    return this.prisma.perfil.findUnique({
+      where: { id },
+      select: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+        title: true,
+        imageURL: true,
+        games: true,
+      }
+    })
   }
 
-  async findById(id: string): Promise<Perfil> {
-    const record = await this.prisma.perfil.findUnique({ where: { id } });
+  create(dto: CreatePerfilDto) {
+    const data: Prisma.PerfilCreateInput = {
+      user: {
+        connect: {
+          id: dto.userId
+        },
+      },
+      games: {
+        connect: dto.games.map((gameId) => ({
+          id: gameId,
+        })),
+      },
+    };
 
-    if (!record) {
-      throw new NotFoundException(`Registro com o '${id}' não encontrado.`);
-    }
-
-    return record;
-  }
-
-  async findOne(id: string): Promise<Perfil> {
-    return await this.findById(id);
-  }
-
-  async create(dto: CreatePerfilDto): Promise<Perfil> {
-    const data: Perfil = { ...dto };
-
-    return await this.prisma.perfil.create({ data }).catch(handleError);
+    return this.prisma.perfil.create({
+      data, select: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+        games: {
+          select: {
+            id: true,
+            nome: true,
+            favorite: true,
+          },
+        },
+      },
+    }).catch(handleError);
   }
 }
