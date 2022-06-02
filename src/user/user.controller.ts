@@ -30,7 +30,7 @@ export class UserController {
     summary: 'Visualizar um usuário pelo ID'
   })
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    return this.userService.findById(id);
   }
 
   @Patch(':id')

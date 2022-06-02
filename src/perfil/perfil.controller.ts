@@ -14,7 +14,7 @@ export class PerfilController {
   @ApiOperation({
     summary: 'Listar todos os perfis',
   })
-  findAll(): Promise<Perfil[]> {
+  findAll() {
     return this.perfilService.findAll();
   }
 
@@ -22,7 +22,7 @@ export class PerfilController {
   @ApiOperation({
     summary: 'Visualizar um perfil',
   })
-  findOne(@Param('id') id: string): Promise<Perfil> {
+  findOne(@Param('id') id: string) {
     return this.perfilService.findOne(id);
   }
 
@@ -30,7 +30,7 @@ export class PerfilController {
   @ApiOperation({
     summary: 'Cadastrar um perfil',
   })
-  create(@Body() dto: CreatePerfilDto): Promise<Perfil> {
+  create(@Body() dto: CreatePerfilDto) {
     return this.perfilService.create(dto);
   }
 
@@ -38,7 +38,7 @@ export class PerfilController {
   @ApiOperation({
     summary: 'Editar um perfil pelo ID',
   })
-  update(@Param('id') id: string, @Body() dto: UpdatePerfilDto): Promise<Perfil> {
+  update(@Param('id') id: string, @Body() dto: UpdatePerfilDto) {
     return this.perfilService.update(id, dto);
   }
 

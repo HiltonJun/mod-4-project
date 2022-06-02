@@ -18,7 +18,7 @@ export class UserService {
     cpf: false,
     name: true,
     password: false,
-    image: true,
+    image: false,
     email: false,
     isAdmin: false,
   };
@@ -90,9 +90,7 @@ export class UserService {
       .catch(handleError);
   }
 
-  async delete(id: string) {
-    await this.findById(id);
-
-    await this.prisma.user.delete({ where: { id } });
-  }
+  delete(id: string) {
+    return this.prisma.user.delete({where: { id }})
+  };
 }

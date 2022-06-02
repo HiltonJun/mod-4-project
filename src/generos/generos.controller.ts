@@ -31,7 +31,7 @@ export class GenerosController {
   @ApiOperation({
     summary: 'Cadastrar um genero',
   })
-  create(@Body() dto: CreateGeneroDto): Promise<Genero> {
+  create(@Body() dto: CreateGeneroDto) {
     return this.generoService.create(dto);
   }
 

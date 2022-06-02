@@ -4,6 +4,7 @@ import { Genero } from './entities/genero.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateGeneroDto } from './dto/update.genero.dto';
 import { handleError } from 'src/utils/handle.error.utils';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class GenerosService {
@@ -15,15 +16,13 @@ export class GenerosService {
     await this.prisma.genero.delete({ where: { id } });
   }
 
-  async update(id: string, dto: UpdateGeneroDto): Promise<Genero> {
-    await this.findById(id);
-
-    const data: Partial<Genero> = { ...dto };
-
+update(id: string, dto: UpdateGeneroDto) {
     return this.prisma.genero.update({
       where: { id },
-      data,
-    });
+      data: {
+        nome: dto.nome,
+      }
+    })
   }
 
   findAll(): Promise<Genero[]> {
@@ -44,9 +43,15 @@ export class GenerosService {
     return await this.findById(id);
   }
 
-  async create(dto: CreateGeneroDto): Promise<Genero> {
-    const data: Genero = { ...dto };
+  create(dto: CreateGeneroDto) {
+    const data: Prisma.GeneroCreateInput = {
+      nome: dto.nome,
+    };
 
-    return await this.prisma.genero.create({ data }).catch(handleError);
+    return this.prisma.genero.create({
+      data, select: {
+        nome: true,
+      },
+    }).catch(handleError);
   }
 }

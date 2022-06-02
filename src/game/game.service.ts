@@ -4,6 +4,7 @@ import { Game } from './entities/game.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateGameDto } from './dto/update.game.dto';
 import { handleError } from 'src/utils/handle.error.utils';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class GameService {
@@ -15,15 +16,23 @@ export class GameService {
     await this.prisma.game.delete({ where: { id } });
   }
 
-  async update(id: string, dto: UpdateGameDto): Promise<Game> {
-    await this.findById(id);
-
-    const data: Partial<Game> = { ...dto };
-
-    return this.prisma.game.update({
-      where: { id },
-      data,
-    });
+update(id: string, dto: UpdateGameDto) {
+  return this.prisma.game.update({
+    where: { id },
+    data: {
+      nome: dto.nome,
+      capa: dto.capa,
+      descricao: dto.descricao,
+      plataformas: dto.plataformas,
+      lancamento: dto.lancamento,
+      developer: dto.developer,
+      publisher: dto.publisher,
+      imdbscore: dto.imdbscore,
+      favorite: dto.favorite,
+      trailer: dto.trailer,
+      gameplay: dto.gameplay,
+    }
+  })
   }
 
   findAll(): Promise<Game[]> {
@@ -44,9 +53,55 @@ export class GameService {
     return await this.findById(id);
   }
 
-  async create(dto: CreateGameDto): Promise<Game> {
-    const data: Game = { ...dto };
+  async create(dto: CreateGameDto) {
+    const data: Prisma.GameCreateInput = {
+      nome: dto.nome,
+      capa: dto.capa,
+      descricao: dto.descricao,
+      plataformas: dto.plataformas,
+      lancamento: dto.lancamento,
+      developer: dto.developer,
+      publisher: dto.publisher,
+      imdbscore: dto.imdbscore,
+      favorite: dto.favorite,
+      trailer: dto.trailer,
+      gameplay: dto.gameplay,
+      generos: {
+        connect: dto.generos.map((generoNome) => ({
+          nome: generoNome,
+        })),
+      },
+      perfis: {
+        connect: dto.perfis.map((perfilId) => ({
+          id: perfilId,
+        })),
+      },
+    };
 
-    return await this.prisma.game.create({ data }).catch(handleError);
+    return this.prisma.game.create({
+      data, select: {
+        nome: true,
+        capa: true,
+        descricao: true,
+        plataformas: true,
+        lancamento: true,
+        developer: true,
+        publisher: true,
+        imdbscore: true,
+        favorite: true,
+        trailer: true,
+        gameplay: true,
+        generos: {
+          select: {
+            nome: true,
+          },
+        },
+        perfis: {
+          select: {
+            id: true,
+          }
+        }
+      }
+    }).catch(handleError);
   }
 }
