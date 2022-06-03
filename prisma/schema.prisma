@@ -9,7 +9,7 @@ datasource db {
 
 model Game {
   id          String  @id @default(uuid())
-  nome        String
+  nome        String  @unique
   capa        String
   descricao   String
   plataformas String
@@ -39,11 +39,10 @@ model Genero {
 model User {
   id       String  @id @default(uuid())
   cpf      String  @unique
-  name     String  @unique
+  name     String
   email    String  @unique
   password String
-  image    String
-  isAdmin  Boolean
+  isAdmin  Boolean @default(false) @map("is_admin")
 
   perfil Perfil[]
 

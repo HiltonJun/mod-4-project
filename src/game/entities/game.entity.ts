@@ -2,7 +2,7 @@ import { Genero } from "src/generos/entities/genero.entity";
 import { Perfil } from "src/perfil/entities/perfil.entity";
 
 export class Game {
-  id: string;
+  id?: string;
   nome: string;
   capa: string;
   descricao: string;
@@ -11,7 +11,7 @@ export class Game {
   developer: string;
   publisher: string;
   imdbscore: number;
-  favorite: boolean;
+  favorite?: boolean;
   trailer: string;
   gameplay: string;
   generos?: Genero[];

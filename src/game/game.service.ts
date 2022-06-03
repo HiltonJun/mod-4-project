@@ -28,7 +28,6 @@ update(id: string, dto: UpdateGameDto) {
       developer: dto.developer,
       publisher: dto.publisher,
       imdbscore: dto.imdbscore,
-      favorite: dto.favorite,
       trailer: dto.trailer,
       gameplay: dto.gameplay,
     }
@@ -53,7 +52,7 @@ update(id: string, dto: UpdateGameDto) {
     return await this.findById(id);
   }
 
-  async create(dto: CreateGameDto) {
+  create(dto: CreateGameDto) {
     const data: Prisma.GameCreateInput = {
       nome: dto.nome,
       capa: dto.capa,
@@ -63,7 +62,6 @@ update(id: string, dto: UpdateGameDto) {
       developer: dto.developer,
       publisher: dto.publisher,
       imdbscore: dto.imdbscore,
-      favorite: dto.favorite,
       trailer: dto.trailer,
       gameplay: dto.gameplay,
       generos: {
@@ -88,7 +86,6 @@ update(id: string, dto: UpdateGameDto) {
         developer: true,
         publisher: true,
         imdbscore: true,
-        favorite: true,
         trailer: true,
         gameplay: true,
         generos: {

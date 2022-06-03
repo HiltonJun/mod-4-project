@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBIC,
   IsBoolean,
+  IsNotEmpty,
   IsString,
   IsUrl,
   Matches,
@@ -10,13 +11,7 @@ import {
 
 export class CreateUserDto {
   @IsString()
-  @ApiProperty({
-    description: 'O id do usuário no banco de dados',
-    example: '504ead36-3afe-491a-8222-811ce36241b2',
-  })
-  id: string;
-
-  @IsString()
+  @IsNotEmpty()
   @ApiProperty({
     description: 'O nome de usuário',
     example: 'Hilton',
@@ -24,6 +19,7 @@ export class CreateUserDto {
   name: string;
 
   @IsString()
+  @IsNotEmpty()
   @ApiProperty({
     description: 'Email do usuário',
     example: 'fulano@gmail.com',
@@ -31,18 +27,12 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
+  @IsNotEmpty()
   @ApiProperty({
     description: 'Número do CPF',
     example: 'xxx.xxx.xxx-xx',
   })
   cpf: string;
-
-  @IsBoolean()
-  @ApiProperty({
-    description: 'Usuário tem direitos de administrador',
-    example: 'true',
-  })
-  isAdmin: boolean;
 
   @IsString()
   @MinLength(6)
@@ -60,11 +50,4 @@ export class CreateUserDto {
     example: 'Abcd@1234',
   })
   confirmPassword: string;
-
-  @IsUrl()
-  @ApiProperty({
-    description: 'Foto de perfil',
-    example: 'https://avatars.githubusercontent.com/u/11823634?v=4',
-  })
-  image: string;
 }

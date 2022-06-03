@@ -12,11 +12,13 @@ async function bootstrap() {
     .setTitle('GameLive')
     .setDescription('Aplicaçâo para gestão e compra de jogos em plataforma online')
     .setVersion('1.0.0')
+    .addTag('Auth')
     .addTag('status')
     .addTag('Game')
     .addTag('Genero')
     .addTag('User')
     .addTag('Perfil')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

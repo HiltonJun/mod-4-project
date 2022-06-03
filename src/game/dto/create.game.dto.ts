@@ -1,15 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsPositive, IsString, IsUrl, IsUUID, Max } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsPositive, IsString, IsUrl, IsUUID, Max } from 'class-validator';
 
 export class CreateGameDto {
   @IsString()
-  @ApiProperty({
-    description: 'O id do jogo no banco de dados',
-    example: '504ead36-3afe-491a-8222-811ce36241b2',
-  })
-  id: string;
-
-  @IsString()
+  @IsNotEmpty()
   @ApiProperty({
     description: 'O nome do jogo',
     example: 'Outward: Definitive Edition',
@@ -66,13 +60,6 @@ export class CreateGameDto {
     example: '5',
   })
   imdbscore: number;
-
-  @IsBoolean()
-  @ApiProperty({
-    description: 'Se o jogo é favorito do usuário("False" por default)',
-    example: false,
-  })
-  favorite: boolean;
 
   @IsUrl()
   @ApiProperty({

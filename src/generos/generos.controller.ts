@@ -15,7 +15,7 @@ export class GenerosController {
   @ApiOperation({
     summary: 'Listar todos os generos',
   })
-  findAll(): Promise<Genero[]> {
+  findAll() {
     return this.generoService.findAll();
   }
 
@@ -23,7 +23,7 @@ export class GenerosController {
   @ApiOperation({
     summary: 'Visualizar um genero',
   })
-  findOne(@Param('id') id: string): Promise<Genero> {
+  findOne(@Param('id') id: string) {
     return this.generoService.findOne(id);
   }
 

@@ -15,7 +15,7 @@ export class GameController {
   @ApiOperation({
     summary: 'Listar todas os jogos',
   })
-  findAll(): Promise<Game[]> {
+  findAll() {
     return this.gameService.findAll();
   }
 
@@ -23,7 +23,7 @@ export class GameController {
   @ApiOperation({
     summary: 'Visualizar um jogo',
   })
-  findOne(@Param('id') id: string): Promise<Game> {
+  findOne(@Param('id') id: string) {
     return this.gameService.findOne(id);
   }
 

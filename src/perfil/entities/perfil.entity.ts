@@ -2,9 +2,8 @@ import { User } from "@prisma/client";
 import { Game } from "src/game/entities/game.entity";
 
 export class Perfil {
-  id: string;
+  id?: string;
   title: string;
-  imageURL: string;
-  user: User;
-  games: Game[]
+  user?: User;
+  games?: Game[]
 }
