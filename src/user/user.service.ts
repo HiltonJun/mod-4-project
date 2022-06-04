@@ -18,7 +18,6 @@ export class UserService {
     cpf: false,
     name: true,
     password: false,
-    image: false,
     email: false,
     isAdmin: false,
   };

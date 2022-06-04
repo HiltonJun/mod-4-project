@@ -16,8 +16,8 @@ export class GameService {
     await this.prisma.game.delete({ where: { id } });
   }
 
-update(id: string, dto: UpdateGameDto) {
-  return this.prisma.game.update({
+async update(id: string, dto: UpdateGameDto) {
+  return await this.prisma.game.update({
     where: { id },
     data: {
       nome: dto.nome,
@@ -34,8 +34,8 @@ update(id: string, dto: UpdateGameDto) {
   })
   }
 
-  findAll(): Promise<Game[]> {
-    return this.prisma.game.findMany();
+  async findAll(): Promise<Game[]> {
+    return await this.prisma.game.findMany();
   }
 
   async findById(id: string): Promise<Game> {
@@ -48,11 +48,35 @@ update(id: string, dto: UpdateGameDto) {
     return record;
   }
 
-  async findOne(id: string): Promise<Game> {
-    return await this.findById(id);
+  async findOne(id: string) {
+    const data = await this.prisma.game.findUnique({
+      where: { id },
+      select: {
+        nome: true,
+        capa: true,
+        descricao: true,
+        plataformas: true,
+        lancamento: true,
+        developer: true,
+        publisher: true,
+        imdbscore: true,
+        trailer: true,
+        gameplay: true,
+        generos: {
+          select: {
+            nome: true,
+          },
+        },
+      }
+
+    });
+
+    if (!data) {
+      throw new NotFoundException('Jogo não encontrado');
+    }
   }
 
-  create(dto: CreateGameDto) {
+  async create(dto: CreateGameDto) {
     const data: Prisma.GameCreateInput = {
       nome: dto.nome,
       capa: dto.capa,
@@ -76,7 +100,7 @@ update(id: string, dto: UpdateGameDto) {
       },
     };
 
-    return this.prisma.game.create({
+    return await this.prisma.game.create({
       data, select: {
         nome: true,
         capa: true,
