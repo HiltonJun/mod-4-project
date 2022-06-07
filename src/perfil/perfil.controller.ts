@@ -4,6 +4,8 @@ import { CreatePerfilDto } from './dto/create-perfil.dto';
 import { UpdatePerfilDto } from './dto/update-perfil.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { LoggedUser } from 'src/auth/loggedUser.decorator';
+import { User } from 'src/user/entities/user.entity';
 
 @ApiTags('Perfil')
 @UseGuards(AuthGuard())
@@ -32,8 +34,8 @@ export class PerfilController {
   @ApiOperation({
     summary: 'Cadastrar um perfil',
   })
-  create(@Body() dto: CreatePerfilDto) {
-    return this.perfilService.create(dto);
+  create(@LoggedUser()user: User, @Body() dto: CreatePerfilDto) {
+    return this.perfilService.create(user.id, dto);
   }
 
   @Patch(':id')

@@ -49,13 +49,13 @@ export class PerfilService {
     })
   }
 
-  create(dto: CreatePerfilDto) {
+  create(userId: string, dto: CreatePerfilDto) {
     const data: Prisma.PerfilCreateInput = {
       title: dto.title,
       imageURL: dto.imageURL,
       user: {
         connect: {
-          id: dto.userId
+          id: userId
         },
       },
       games: {
