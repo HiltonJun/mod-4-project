@@ -36,4 +36,6 @@ export class AuthController {
   profile() {
     return { message: 'Autenticação bem sucedida' };
   }
+
+  
 }

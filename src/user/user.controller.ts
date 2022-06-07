@@ -1,8 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('User')
 @Controller('user')
@@ -11,7 +23,7 @@ export class UserController {
 
   @Post()
   @ApiOperation({
-    summary: 'Cadastrar um novo usuário'
+    summary: 'Cadastrar um novo usuário',
   })
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
@@ -19,24 +31,30 @@ export class UserController {
 
   @Get()
   @ApiOperation({
-    summary: 'Listar todos os usuários'
+    summary: 'Listar todos os usuários',
   })
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   findAll() {
     return this.userService.findAll();
   }
 
   @Get(':id')
   @ApiOperation({
-    summary: 'Visualizar um usuário pelo ID'
+    summary: 'Visualizar um usuário pelo ID',
   })
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   findOne(@Param('id') id: string) {
     return this.userService.findById(id);
   }
 
   @Patch(':id')
   @ApiOperation({
-    summary: 'Editar um usuário por ID'
+    summary: 'Editar um usuário por ID',
   })
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
@@ -44,8 +62,10 @@ export class UserController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Remover um usuário por ID'
+    summary: 'Remover um usuário por ID',
   })
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   delete(@Param('id') id: string) {
     return this.userService.delete(id);
   }

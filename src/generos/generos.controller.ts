@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Genero } from "@prisma/client";
 import { CreateGeneroDto } from "./dto/create.genero.dto";
 import { UpdateGeneroDto } from "./dto/update.genero.dto";
@@ -7,6 +8,8 @@ import { GenerosService } from "./generos.service";
 
 
 @ApiTags('Genero')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('genero')
 export class GenerosController {
   constructor(private readonly generoService: GenerosService){}
