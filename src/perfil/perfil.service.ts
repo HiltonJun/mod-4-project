@@ -24,28 +24,9 @@ export class PerfilService {
     })
   };
 
-  findAll() {
-    return this.prisma.perfil.findMany({
-      select: {
-        title: true,
-        imageURL: true,
-      },
-    })
-  }
-
-  findOne(id: string) {
-    return this.prisma.perfil.findUnique({
-      where: { id },
-      select: {
-        user: {
-          select: {
-            name: true,
-          },
-        },
-        title: true,
-        imageURL: true,
-        games: true,
-      }
+  async findAll(user: string) {
+    return await this.prisma.perfil.findMany({
+      where: { userId: user},
     })
   }
 
@@ -76,7 +57,6 @@ export class PerfilService {
           select: {
             id: true,
             nome: true,
-            favorite: true,
           },
         },
       },

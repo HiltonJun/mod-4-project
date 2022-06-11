@@ -4,6 +4,6 @@ import { Game } from "src/game/entities/game.entity";
 export class Perfil {
   id?: string;
   title: string;
-  user?: User;
+  user: User;
   games?: Game[]
 }

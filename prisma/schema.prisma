@@ -8,8 +8,8 @@ datasource db {
 }
 
 model Game {
-  id          String  @id @default(uuid())
-  nome        String  @unique
+  id          String @id @default(uuid())
+  nome        String @unique
   capa        String
   descricao   String
   plataformas String
@@ -17,14 +17,15 @@ model Game {
   developer   String
   publisher   String
   imdbscore   Int
-  favorite    Boolean
   trailer     String
   gameplay    String
 
   generos Genero[]
   perfis  Perfil[]
+  Favorite Favorite[]
 
   @@map("game")
+
 }
 
 model Genero {
@@ -57,7 +58,22 @@ model Perfil {
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
 
-  games Game[]
+  games     Game[]
+  favorites Favorite[]
 
   @@map("perfil")
+}
+
+model Favorite {
+  id        String @id @default(uuid())
+  nome      String @unique
+  capa      String
+  imdbscore Int
+
+  game   Game   @relation(fields: [gameId], references: [id])
+  gameId String @map("user_id")
+
+  perfis Perfil[]
+
+  @@map("favorite")
 }

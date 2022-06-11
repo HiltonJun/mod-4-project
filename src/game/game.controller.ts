@@ -16,7 +16,7 @@ export class GameController {
 
   @Get()
   @ApiOperation({
-    summary: 'Listar todas os jogos',
+    summary: 'Listar todos os jogos',
   })
   findAll() {
     return this.gameService.findAll();

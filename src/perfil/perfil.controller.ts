@@ -16,18 +16,10 @@ export class PerfilController {
 
   @Get()
   @ApiOperation({
-    summary: 'Listar todos os perfis',
+    summary: 'Listar todos os perfis do usuário',
   })
-  findAll() {
-    return this.perfilService.findAll();
-  }
-
-  @Get(':id')
-  @ApiOperation({
-    summary: 'Visualizar um perfil',
-  })
-  findOne(@Param('id') id: string) {
-    return this.perfilService.findOne(id);
+  findAll(@LoggedUser()user: User) {
+    return this.perfilService.findAll(user.id);
   }
 
   @Post()

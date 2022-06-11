@@ -11,7 +11,6 @@ export class Game {
   developer: string;
   publisher: string;
   imdbscore: number;
-  favorite?: boolean;
   trailer: string;
   gameplay: string;
   generos?: Genero[];

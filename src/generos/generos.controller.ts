@@ -54,4 +54,4 @@ export class GenerosController {
   delete(@Param('id') id: string) {
     return this.generoService.delete(id);
   }
-}
+};

@@ -73,6 +73,8 @@ async update(id: string, dto: UpdateGameDto) {
 
     if (!data) {
       throw new NotFoundException('Jogo não encontrado');
+    } else {
+      return data;
     }
   }
 
@@ -124,5 +126,5 @@ async update(id: string, dto: UpdateGameDto) {
         }
       }
     }).catch(handleError);
-  }
-}
+  };
+};
