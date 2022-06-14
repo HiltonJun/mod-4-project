@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Favorite, User } from "@prisma/client";
 import { Game } from "src/game/entities/game.entity";
 
 export class Perfil {
@@ -6,4 +6,5 @@ export class Perfil {
   title: string;
   user: User;
   games?: Game[]
+  favorites?: Favorite[]
 }

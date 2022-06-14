@@ -24,9 +24,9 @@ export class PerfilService {
     })
   };
 
-  async findAll(user: string) {
+  async findAll(userId: string) {
     return await this.prisma.perfil.findMany({
-      where: { userId: user},
+      where: { userId: userId},
     })
   }
 

@@ -16,8 +16,8 @@ export class GenerosService {
     await this.prisma.genero.delete({ where: { id } });
   }
 
-update(id: string, dto: UpdateGeneroDto) {
-    return this.prisma.genero.update({
+async update(id: string, dto: UpdateGeneroDto) {
+    return await this.prisma.genero.update({
       where: { id },
       data: {
         nome: dto.nome,
@@ -25,8 +25,8 @@ update(id: string, dto: UpdateGeneroDto) {
     })
   }
 
-  findAll(): Promise<Genero[]> {
-    return this.prisma.genero.findMany();
+  async findAll(): Promise<Genero[]> {
+    return await this.prisma.genero.findMany();
   }
 
   async findById(id: string): Promise<Genero> {
@@ -43,12 +43,12 @@ update(id: string, dto: UpdateGeneroDto) {
     return await this.findById(id);
   }
 
-  create(dto: CreateGeneroDto) {
+  async create(dto: CreateGeneroDto) {
     const data: Prisma.GeneroCreateInput = {
       nome: dto.nome,
     };
 
-    return this.prisma.genero.create({
+    return await this.prisma.genero.create({
       data, select: {
         nome: true,
       },

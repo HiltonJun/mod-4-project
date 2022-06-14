@@ -9,14 +9,14 @@ import { CreateFavoriteDto } from './dto/create-favorite.dto';
 export class FavoriteService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(gameId: string, createFavoriteDto: CreateFavoriteDto) {
+  async create(createFavoriteDto: CreateFavoriteDto) {
     const data: Prisma.FavoriteCreateInput ={
       nome: createFavoriteDto.nome,
       capa: createFavoriteDto.capa,
       imdbscore: createFavoriteDto.imdbscore,
       game: {
         connect: {
-          id: gameId,
+          id: createFavoriteDto.game,
         },
       },
       perfis: {

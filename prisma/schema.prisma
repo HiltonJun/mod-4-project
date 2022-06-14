@@ -22,7 +22,7 @@ model Game {
 
   generos Genero[]
   perfis  Perfil[]
-  Favorite Favorite[]
+  favorite Favorite[]
 
   @@map("game")
 
@@ -71,7 +71,7 @@ model Favorite {
   imdbscore Int
 
   game   Game   @relation(fields: [gameId], references: [id])
-  gameId String @map("user_id")
+  gameId String @map("game_id")
 
   perfis Perfil[]
 

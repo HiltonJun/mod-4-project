@@ -41,5 +41,5 @@ export class CreateFavoriteDto {
     example:
       '04f66779-bcfa-4c5c-a140-f234138890f3',
   })
-  games: string;
+  game: string;
 }

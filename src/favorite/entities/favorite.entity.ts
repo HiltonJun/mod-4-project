@@ -6,5 +6,5 @@ export class Favorite {
   capa: string;
   imdbscore: number;
   perfis?: string[];
-  games?: Game;
+  game?: Game;
 }

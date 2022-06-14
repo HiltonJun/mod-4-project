@@ -15,8 +15,8 @@ export class FavoriteController {
   @ApiOperation({
     summary: 'Favoritar um jogo',
   })
-  create(gameId: string, @Body() dto: CreateFavoriteDto) {
-    return this.favoriteService.create(gameId, dto);
+  create(@Body() dto: CreateFavoriteDto) {
+    return this.favoriteService.create(dto);
   }
 
   @Get()

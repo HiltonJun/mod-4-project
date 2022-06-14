@@ -1,6 +1,7 @@
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoggedUser } from 'src/auth/loggedUser.decorator';
 import { HomepageService } from './homepage.service';
 
 @ApiTags('Homepage')
@@ -10,27 +11,27 @@ import { HomepageService } from './homepage.service';
 export class HomepageController {
   constructor(private readonly homepageService: HomepageService) {}
 
-  @Get()
+  @Get('jogos/:id')
   @ApiOperation({
     summary: 'Listar os jogos do perfil',
   })
-  findAll() {
-    return this.homepageService.findAll();
+  findAll(@Param('id') perfilId: string) {
+    return this.homepageService.findAll(perfilId);
   }
 
-  @Get('favoritos')
+  @Get('favoritos/:id')
   @ApiOperation({
     summary: 'Listar os jogos favoritos do perfil',
   })
-  findFavorites() {
-    return this.homepageService.findFavorites();
+  findFavorites(@Param('id') perfilId: string) {
+    return this.homepageService.findFavorites(perfilId);
   }
 
   @Get('genero')
   @ApiOperation({
     summary: 'Listar os jogos por gênero',
   })
-  findByGenre(@Param('genero') genero: string) {
-    return this.homepageService.findByGenre(genero);
+  findGamesByGenre(@Param('genero') genero: string, @Param('perfilId') perfilId: string) {
+    return this.homepageService.findGamesByGenre(genero, perfilId);
   }
 };
