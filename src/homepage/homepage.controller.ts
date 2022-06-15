@@ -27,7 +27,7 @@ export class HomepageController {
     return this.homepageService.findFavorites(perfilId);
   }
 
-  @Get('genero')
+  @Get('genero/:id')
   @ApiOperation({
     summary: 'Listar os jogos por gênero',
   })
